@@ -55,7 +55,6 @@ pipeline {
             }
             steps {
                 script {
-                    sh "apt update && apt install -y maven"
                     def services = env.SERVICES.split(',')
                     def parallelBuilds = [:]
 
@@ -63,13 +62,11 @@ pipeline {
                         parallelBuilds[service] = {
                             stage("Build: ${service}") {
                                 try {
-                                    echo "🚀 Building: ${service}"
                                     sh "mvn clean package -pl ${service} -DfinalName=app -DskipTests"
                                     
                                     def jarfile = "${service}/target/app.jar"
                                     archiveArtifacts artifacts: jarfile, fingerprint: true
                                 } catch (Exception e) {
-                                    echo "❌ Build failed for ${service}: ${e.getMessage()}"
                                     error("Build failed for ${service}")
                                 }
                             }
@@ -133,10 +130,8 @@ pipeline {
                         parallelDockerPush[service] = {
                             stage("Docker Push: ${service}") {
                                 try {
-                                    echo "🐳 Push Docker Image for: ${service}"
                                     sh "docker push ${DOCKER_IMAGE_BASENAME}/${service}:${env.GIT_TAG}"
                                 } catch (Exception e) {
-                                    echo "❌ Docker Push failed for ${service}: ${e.getMessage()}"
                                     error("Docker Push failed for ${service}")
                                 }
                             }
