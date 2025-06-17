@@ -18,7 +18,7 @@
     </appender>
 
     <!-- File appender -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="GENAI_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/tmp/genai.log</file>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -35,7 +35,7 @@
     <!-- Root logger configuration -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="GENAI_FILE"/>
     </root>
 
     <!-- Specific logger levels (mirroring your original logs) -->

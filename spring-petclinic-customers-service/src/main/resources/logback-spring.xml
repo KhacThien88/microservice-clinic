@@ -18,7 +18,7 @@
     </appender>
 
     <!-- File appender -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="CUSTOMERS_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/tmp/customers.log</file>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -35,7 +35,7 @@
     <!-- Root logger configuration -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="CUSTOMERS_FILE"/>
     </root>
 
     <!-- Specific logger levels (mirroring your original logs) -->
